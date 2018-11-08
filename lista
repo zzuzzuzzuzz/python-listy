@@ -1,0 +1,54 @@
+#Zuzanna Piekarczyk
+#Działania na listach PYTHON
+
+import sys
+
+if (len(sys.argv) == 1 or len(sys.argv) > 2):
+    print("Podaj prawidłową nazwę pliku do zapisu :)\n")
+#Sprawdzam, czy użytkownik wprowadził nazwę pliku jako parametr
+else:
+    name = sys.argv[1]
+
+    while True:
+        try:
+            z = int(input("Ile książek ma zawierać ta lista? ") or "10")
+        except ValueError:
+            print("Pamiętaj - wprowadź wartość liczbową :/")
+            #Wymuszam wprowadzenie wartości liczbowej
+            continue
+        else:
+            if (z >= 10):
+                break
+                #Jeśli jest podane mniej niż 10 jako ilość książek, to wymuś ponowne wprowadzenie
+            else:
+                print("Pamiętaj - lista musi zawierać minimum 10 tytułów :/")
+                continue
+
+    print("Określiłeś taką ilość książek: %d" % z)
+    #Wypisanie ilości tytułów, które będą wpisywane
+
+    books = []
+    #Tworzę listę
+
+    for p in range(1,z+1):
+        title = ""
+        while (title == ""):
+            title = input("Podaj tytuł książki numer %d: " % p)
+            books.append(title)
+    #Pozwalam użytkownikowi na wprowadzenie tytułów książek
+
+    books.sort()
+    #Sortuję listę wg alfabetu
+
+    if (name[-3:] == ".txt"):
+        pass
+    #Jeśli wprowadzona nazwa pliku zawiera .txt na końcu, to nic nie rób (pass)
+    else:
+        name = name + ".txt"
+    #Jeśli użytkownik nadal nie poda, to dodaj .txt na koniec
+
+
+    with open(name, "w+") as file:
+        for p in books:
+            file.write("%s\n" % p)
+    #Zapis listy do pliku podanego przez użytkownika, lub domyślnego lista.txt
